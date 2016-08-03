@@ -1,5 +1,8 @@
 # combos
 
+[![Travis branch](https://img.shields.io/travis/jfairbank/combos/master.svg?style=flat-square)](https://travis-ci.org/jfairbank/combos)
+[![npm](https://img.shields.io/npm/v/combos.svg?style=flat-square)](https://www.npmjs.com/package/combos)
+
 Generate all possible permutations of an object's key-value pairs. Combos
 takes all the possible values an object's keys can have and creates all possible
 combinations of those values for each key.
