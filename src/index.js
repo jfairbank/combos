@@ -1,7 +1,22 @@
-/* @flow */
-import { generateValueCombinations } from './utils';
+import {
+  assertHaveValuesForEveryKey,
+  generateValueCombinations,
+} from './utils';
 
-export default function shape(definition: Object): Array {
+function combos(definition) {
+  const valid = (
+    definition
+    && typeof definition === 'object'
+    && !Array.isArray(definition)
+    && Object.keys(definition).length > 0
+  );
+
+  if (!valid) {
+    throw new Error(
+      'Please provide an object with at least one key and array of values'
+    );
+  }
+
   const { keys, possibleValues } = Object.keys(definition).reduce(
     (memo, key) => {
       memo.keys.push(key);
@@ -12,7 +27,9 @@ export default function shape(definition: Object): Array {
     { keys: [], possibleValues: [] }
   );
 
-  const combinations = generateValueCombinations(possibleValues);
+  assertHaveValuesForEveryKey(keys, possibleValues);
+
+  const combinations = generateValueCombinations(possibleValues, true);
 
   return combinations.map(values => values.reduce(
     (memo, value, i) => {
@@ -24,3 +41,8 @@ export default function shape(definition: Object): Array {
     {}
   ));
 }
+
+combos.__esModule = true;
+combos.default = combos;
+
+module.exports = combos;
