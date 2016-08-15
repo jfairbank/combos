@@ -1,3 +1,7 @@
+export function sym(id) {
+  return `@@combos/${id}`;
+}
+
 export function buildBaseTuple(headItem, restItem) {
   return [headItem, restItem];
 }

@@ -23,13 +23,13 @@ function createObjectFinder(t, objects) {
 test('generates all possible combinations', t => {
   const result = combos({
     foo: [true, false],
-    bar: [1, 0],
+    bar: [1, 0, combos.UNDEF],
     baz: ['hello', 'world'],
   });
 
   const objectFinder = createObjectFinder(t, result);
 
-  t.is(result.length, 8);
+  t.is(result.length, 12);
 
   objectFinder.assertHasObjectOnce(({ foo, bar, baz }) => (
     foo === true && bar === 1 && baz === 'hello'
@@ -47,6 +47,14 @@ test('generates all possible combinations', t => {
     foo === true && bar === 0 && baz === 'world'
   ));
 
+  objectFinder.assertHasObjectOnce(o => (
+    o.foo === true && !o.hasOwnProperty('bar') && o.baz === 'hello'
+  ));
+
+  objectFinder.assertHasObjectOnce(o => (
+    o.foo === true && !o.hasOwnProperty('bar') && o.baz === 'world'
+  ));
+
   objectFinder.assertHasObjectOnce(({ foo, bar, baz }) => (
     foo === false && bar === 1 && baz === 'hello'
   ));
@@ -61,6 +69,14 @@ test('generates all possible combinations', t => {
 
   objectFinder.assertHasObjectOnce(({ foo, bar, baz }) => (
     foo === false && bar === 0 && baz === 'world'
+  ));
+
+  objectFinder.assertHasObjectOnce(o => (
+    o.foo === false && !o.hasOwnProperty('bar') && o.baz === 'hello'
+  ));
+
+  objectFinder.assertHasObjectOnce(o => (
+    o.foo === false && !o.hasOwnProperty('bar') && o.baz === 'world'
   ));
 
   objectFinder.assertAllChecked();

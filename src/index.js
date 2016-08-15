@@ -1,7 +1,10 @@
 import {
   assertHaveValuesForEveryKey,
   generateValueCombinations,
+  sym,
 } from './utils';
+
+const UNDEF = sym('UNDEF');
 
 function combos(definition) {
   const valid = (
@@ -33,14 +36,19 @@ function combos(definition) {
 
   return combinations.map(values => values.reduce(
     (memo, value, i) => {
-      // eslint-disable-next-line no-param-reassign
-      memo[keys[i]] = value;
+      if (value !== UNDEF) {
+        // eslint-disable-next-line no-param-reassign
+        memo[keys[i]] = value;
+      }
+
       return memo;
     },
 
     {}
   ));
 }
+
+combos.UNDEF = UNDEF;
 
 combos.__esModule = true;
 combos.default = combos;

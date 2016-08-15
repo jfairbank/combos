@@ -62,6 +62,7 @@
       "import/resolver": "node"
     },
     "rules": {
+      "no-prototype-builtins": 0,
       "no-underscore-dangle": 0,
       "no-unused-vars": [
         "error",
