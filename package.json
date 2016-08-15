@@ -1,6 +1,6 @@
 {
   "name": "combos",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generate all possible permutations of an object's key-value pairs",
   "main": "lib/index.js",
   "files": [
